@@ -1,0 +1,11 @@
+{
+  "extends": "./node_modules/gts/tsconfig-google.json",
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "outDir": "build",
+    "esModuleInterop": true
+  },
+  "exclude": [
+    "build/**"
+  ]
+}
