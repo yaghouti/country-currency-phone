@@ -87,6 +87,18 @@ export class CountryCurrencyIso {
     return { countries, currency, symbol };
   }
 
+  public getAll(): IDBItem[] {
+    const items: IDBItem[] = [];
+    this.countries.forEach((iso, country) => {
+      const countryCurrency = this.getByCountry(country);
+      if (countryCurrency) {
+        items.push(countryCurrency);
+      }
+    });
+
+    return items;
+  }
+
   public addToDB(item: IDBItem): void {
     this.countries.set(item.country, item.iso);
     let isoCountries = this.countryISOs.get(item.iso);
