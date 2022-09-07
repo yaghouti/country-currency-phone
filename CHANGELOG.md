@@ -1,5 +1,8 @@
 # Country Currency ISO
 
+## 1.0.1
+- Update README.md
+
 ## 1.0.0
 - Get by country added.
 - Get by ISO added.

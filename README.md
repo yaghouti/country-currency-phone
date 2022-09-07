@@ -1,8 +1,5 @@
 # Country Currency ISO
-Provides countries and currencies based on ISO names and symbols
-
-## Install
-> npm install country-currency-iso
+Provides countries and currencies based on ISO names and symbols.
 
 ## Usage
 ```ts
@@ -12,20 +9,20 @@ const countryCurrencyIso = new CountryCurrencyIso();
 
 #### Get By Country Name
 ```ts
-const countryCurrency1 = countryCurrencyIso.getByCountry('Iran');
+const countryCurrency = countryCurrencyIso.getByCountry('Iran');
 // { country: 'Iran', iso: 'IR', currency: 'IRR', symbol: 'IRR' }
 ```
 
 #### Get By Country ISO
 ```ts
-const countryCurrency2 = countryCurrencyIso.getByISO('DE');
+const countryCurrency = countryCurrencyIso.getByISO('DE');
 // { country: 'Germany', iso: 'DE', currency: 'EUR', symbol: '€' }
 ```
 
 #### Get By Currency
 ```ts
-const countryCurrency3 = countryCurrencyIso.getByCurrency('USD');
-const countryCurrency4 = countryCurrencyIso.getBySymbol('$');
+const countryCurrency1 = countryCurrencyIso.getByCurrency('USD');
+const countryCurrency2 = countryCurrencyIso.getBySymbol('$');
 // {
 //   countries: [
 //     { name: 'American Samoa', iso: 'AS' },
@@ -38,7 +35,22 @@ const countryCurrency4 = countryCurrencyIso.getBySymbol('$');
 // }
 ```
 
-#### Get All Items In Local DB
+#### Add New Items To The Local DB
+**NB:** These items won't be stored permanently.
+```ts
+const item = {
+  country: 'Iran (Islamic Republic of Persian Gulf)',
+  iso: 'IR',
+  currency: 'IRR',
+  symbol: 'IRR',
+};
+countryCurrencyIso.addToDB(item);
+
+let countryCurrency = countryCurrencyIso.getByCountry(item.country);
+// { country: 'Iran (Islamic Republic of Persian Gulf)', iso: 'IR', currency: 'IRR', symbol: 'IRR' }
+```
+
+#### Get All The Local DB Items
 ```ts
 const items = countryCurrencyIso.getAll();
 // [

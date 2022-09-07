@@ -1,7 +1,7 @@
 {
   "name": "country-currency-iso",
-  "version": "0.1.0",
-  "description": "Provides countries and currencies based on ISO names and symbols",
+  "version": "0.1.1",
+  "description": "Provides countries and currencies based on ISO names and symbols.",
   "license": "MIT",
   "main": "build/index.js",
   "engines": {
