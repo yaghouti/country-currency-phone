@@ -1,160 +1,127 @@
 import * as fs from 'fs';
-import {
-  ICountry,
-  ICountryCurrency,
-  ICountryCurrencyList,
-  IDBItem,
-} from './interfaces';
+import { ICountryCurrencyPhone } from './interfaces';
 
-export class CountryCurrencyIso {
-  private readonly countries: Map<string, string>;
-  private readonly countryISOs: Map<string, Set<string>>;
-  private readonly currencies: Map<string, string>;
-  private readonly symbols: Map<string, string>;
-  private readonly country_currency: Map<string, string>;
-  private readonly currency_countries: Map<string, Set<string>>;
+export class CountryCurrencyPhone {
+  private readonly countryNames: Map<string, ICountryCurrencyPhone>;
+  private readonly countryAlpha2s: Map<string, ICountryCurrencyPhone>;
+  private readonly countryAlpha3s: Map<string, ICountryCurrencyPhone>;
+  private readonly currencyNames: Map<string, Set<ICountryCurrencyPhone>>;
+  private readonly currencyAlpha3s: Map<string, Set<ICountryCurrencyPhone>>;
+  private readonly currencySymbols: Map<string, Set<ICountryCurrencyPhone>>;
+  private readonly phoneCodes: Map<string, ICountryCurrencyPhone>;
 
   constructor() {
-    this.countries = new Map<string, string>();
-    this.countryISOs = new Map<string, Set<string>>();
-    this.currencies = new Map<string, string>();
-    this.symbols = new Map<string, string>();
-    this.country_currency = new Map<string, string>();
-    this.currency_countries = new Map<string, Set<string>>();
+    this.countryNames = new Map<string, ICountryCurrencyPhone>();
+    this.countryAlpha2s = new Map<string, ICountryCurrencyPhone>();
+    this.countryAlpha3s = new Map<string, ICountryCurrencyPhone>();
+    this.currencyNames = new Map<string, Set<ICountryCurrencyPhone>>();
+    this.currencyAlpha3s = new Map<string, Set<ICountryCurrencyPhone>>();
+    this.currencySymbols = new Map<string, Set<ICountryCurrencyPhone>>();
+    this.phoneCodes = new Map<string, ICountryCurrencyPhone>();
     this.loadDb();
   }
 
-  public getByCountry(country: string): ICountryCurrency | undefined {
-    const iso = this.countries.get(country);
-    if (!iso) {
-      return;
-    }
-    const currency = this.country_currency.get(country) ?? '';
-    const symbol = this.currencies.get(currency) ?? '';
-    return { country, iso, currency, symbol };
+  public getByCountryName(name: string): ICountryCurrencyPhone | undefined {
+    return this.countryNames.get(name);
   }
 
-  public getByISO(iso: string): ICountryCurrencyList | undefined {
-    iso = iso.toUpperCase();
-    const countryNames = this.countryISOs.get(iso);
-    if (!countryNames || !countryNames.size) {
-      return;
-    }
-    const countries: ICountry[] = [];
-    countryNames.forEach((country) => {
-      const countryCurrency = this.getByCountry(country);
-      if (countryCurrency) {
-        countries.push({ name: country, iso: countryCurrency.iso });
-      }
-    });
-    const item = this.getByCountry(countries[0].name);
-    return {
-      countries,
-      currency: item?.currency ?? '',
-      symbol: item?.symbol ?? '',
-    };
+  public getByCountryAlpha2(alpha2: string): ICountryCurrencyPhone | undefined {
+    return this.countryAlpha2s.get(alpha2);
   }
 
-  public getByCurrency(currency: string): ICountryCurrencyList | undefined {
-    const symbol = this.currencies.get(currency);
-    if (!symbol) {
-      return;
-    }
-    const countryNames = this.currency_countries.get(currency) ?? [];
-    const countries: ICountry[] = [];
-    countryNames.forEach((country) => {
-      const countryCurrency = this.getByCountry(country);
-      if (countryCurrency) {
-        countries.push({ name: country, iso: countryCurrency.iso });
-      }
-    });
-    return { countries, currency, symbol };
+  public getByCountryAlpha3(alpha3: string): ICountryCurrencyPhone | undefined {
+    return this.countryAlpha3s.get(alpha3);
   }
 
-  public getBySymbol(symbol: string): ICountryCurrencyList | undefined {
-    const currency = this.symbols.get(symbol);
-    if (!currency) {
-      return;
-    }
-    const countryNames = this.currency_countries.get(currency) ?? [];
-    const countries: ICountry[] = [];
-    countryNames.forEach((country) => {
-      const countryCurrency = this.getByCountry(country);
-      if (countryCurrency) {
-        countries.push({ name: country, iso: countryCurrency.iso });
-      }
-    });
-    return { countries, currency, symbol };
-  }
-
-  public getAll(): IDBItem[] {
-    const items: IDBItem[] = [];
-    this.countries.forEach((iso, country) => {
-      const countryCurrency = this.getByCountry(country);
-      if (countryCurrency) {
-        items.push(countryCurrency);
-      }
+  public getByCurrencyName(name: string): ICountryCurrencyPhone[] | undefined {
+    const items: ICountryCurrencyPhone[] = [];
+    this.currencyNames.get(name)?.forEach((item) => {
+      items.push(item);
     });
 
     return items;
   }
 
-  public addToDB(item: IDBItem): void {
-    this.countries.set(item.country, item.iso);
-    let isoCountries = this.countryISOs.get(item.iso);
-    if (isoCountries) {
-      isoCountries.add(item.country);
-    } else {
-      isoCountries = new Set<string>().add(item.country);
-      this.countryISOs.set(item.iso, isoCountries);
+  public getByCurrencyAlpha3(
+    alpha3: string,
+  ): ICountryCurrencyPhone[] | undefined {
+    const items: ICountryCurrencyPhone[] = [];
+    this.currencyAlpha3s.get(alpha3)?.forEach((item) => {
+      items.push(item);
+    });
+
+    return items;
+  }
+
+  public getByCurrencySymbol(
+    symbol: string,
+  ): ICountryCurrencyPhone[] | undefined {
+    const items: ICountryCurrencyPhone[] = [];
+    this.currencySymbols.get(symbol)?.forEach((item) => {
+      items.push(item);
+    });
+
+    return items;
+  }
+
+  public getByPhoneCode(phoneCode: string): ICountryCurrencyPhone | undefined {
+    return this.phoneCodes.get(phoneCode);
+  }
+
+  public getAll(): ICountryCurrencyPhone[] {
+    const items: ICountryCurrencyPhone[] = [];
+    this.countryAlpha2s.forEach((item) => {
+      items.push(item);
+    });
+
+    return items;
+  }
+
+  public addToDB(item: ICountryCurrencyPhone): void {
+    for (const name of item.country.names) {
+      this.countryNames.set(name, item);
     }
-    this.currencies.set(item.currency, item.symbol);
-    this.symbols.set(item.symbol, item.currency);
-    this.country_currency.set(item.country, item.currency);
-    let currencyCountries = this.currency_countries.get(item.currency);
-    if (currencyCountries) {
-      currencyCountries.add(item.country);
+
+    this.countryAlpha2s.set(item.country.alpha2, item);
+
+    this.countryAlpha3s.set(item.country.alpha3, item);
+
+    for (const phoneCode of item.phoneCodes) {
+      this.phoneCodes.set(phoneCode, item);
+    }
+
+    let itemSet = this.currencyNames.get(item.currency.name);
+    if (itemSet) {
+      itemSet.add(item);
     } else {
-      currencyCountries = new Set<string>().add(item.country);
-      this.currency_countries.set(item.currency, currencyCountries);
+      itemSet = new Set<ICountryCurrencyPhone>().add(item);
+      this.currencyNames.set(item.currency.name, itemSet);
+    }
+
+    itemSet = this.currencyAlpha3s.get(item.currency.alpha3);
+    if (itemSet) {
+      itemSet.add(item);
+    } else {
+      itemSet = new Set<ICountryCurrencyPhone>().add(item);
+      this.currencyAlpha3s.set(item.currency.alpha3, itemSet);
+    }
+
+    itemSet = this.currencySymbols.get(item.currency.symbol);
+    if (itemSet) {
+      itemSet.add(item);
+    } else {
+      itemSet = new Set<ICountryCurrencyPhone>().add(item);
+      this.currencySymbols.set(item.currency.symbol, itemSet);
     }
   }
 
   private loadDb(): void {
-    const countries = JSON.parse(
-      fs.readFileSync('./db/countries.db.json', 'utf-8'),
-    );
-    const currencies = JSON.parse(
-      fs.readFileSync('./db/currencies.db.json', 'utf-8'),
-    );
-    const country_currency = JSON.parse(
-      fs.readFileSync('./db/country_currency.db.json', 'utf-8'),
+    const db: ICountryCurrencyPhone[] = JSON.parse(
+      fs.readFileSync('./db/db.json', 'utf-8'),
     );
 
-    for (const country in countries) {
-      this.countries.set(country, countries[country]);
-      let isoCountries = this.countryISOs.get(countries[country]);
-      if (isoCountries) {
-        isoCountries.add(country);
-      } else {
-        isoCountries = new Set<string>().add(country);
-        this.countryISOs.set(countries[country], isoCountries);
-      }
-    }
-    for (const currency in currencies) {
-      this.currencies.set(currency, currencies[currency]);
-      this.symbols.set(currencies[currency], currency);
-    }
-    for (const cc in country_currency) {
-      this.country_currency.set(cc, country_currency[cc]);
-
-      let currencyCountries = this.currency_countries.get(country_currency[cc]);
-      if (currencyCountries) {
-        currencyCountries.add(cc);
-      } else {
-        currencyCountries = new Set<string>().add(cc);
-        this.currency_countries.set(country_currency[cc], currencyCountries);
-      }
+    for (const item of db) {
+      this.addToDB(item);
     }
   }
 }

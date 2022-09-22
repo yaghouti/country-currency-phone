@@ -1,28 +1,28 @@
-# Country Currency ISO
-Provides countries and currencies based on ISO names and symbols.
+# Country Currency Phone
+Provides countries, currencies and phone codes base on ISO names, symbols and codes.
 
 ## Usage
 ```ts
-import { CountryCurrencyIso } from 'country-currency-iso';
-const countryCurrencyIso = new CountryCurrencyIso();
+import { CountryCurrencyPhone } from 'country-currency-phone';
+const countryCurrencyPhone = new CountryCurrencyPhone();
 ```
 
 #### Get By Country Name
 ```ts
-const countryCurrency = countryCurrencyIso.getByCountry('Iran');
+const countryCurrency = countryCurrencyPhone.getByCountry('Iran');
 // { country: 'Iran', iso: 'IR', currency: 'IRR', symbol: 'IRR' }
 ```
 
 #### Get By Country ISO
 ```ts
-const countryCurrency = countryCurrencyIso.getByISO('DE');
+const countryCurrency = countryCurrencyPhone.getByISO('DE');
 // { country: 'Germany', iso: 'DE', currency: 'EUR', symbol: '€' }
 ```
 
 #### Get By Currency
 ```ts
-const countryCurrency1 = countryCurrencyIso.getByCurrency('USD');
-const countryCurrency2 = countryCurrencyIso.getBySymbol('$');
+const countryCurrency1 = countryCurrencyPhone.getByCurrency('USD');
+const countryCurrency2 = countryCurrencyPhone.getBySymbol('$');
 // {
 //   countries: [
 //     { name: 'American Samoa', iso: 'AS' },
@@ -44,15 +44,15 @@ const item = {
   currency: 'IRR',
   symbol: 'IRR',
 };
-countryCurrencyIso.addToDB(item);
+countryCurrencyPhone.addToDB(item);
 
-let countryCurrency = countryCurrencyIso.getByCountry(item.country);
+let countryCurrency = countryCurrencyPhone.getByCountry(item.country);
 // { country: 'Iran (Islamic Republic of Persian Gulf)', iso: 'IR', currency: 'IRR', symbol: 'IRR' }
 ```
 
 #### Get All The Local DB Items
 ```ts
-const items = countryCurrencyIso.getAll();
+const items = countryCurrencyPhone.getAll();
 // [
 //   { country: 'Afghanistan', iso: 'AF', currency: 'AFN', symbol: 'Af' },
 //   { country: 'Aland Islands', iso: 'AX', currency: 'EUR', symbol: '€' },
