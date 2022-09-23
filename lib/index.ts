@@ -8,7 +8,7 @@ export class CountryCurrencyPhone {
   private readonly currencyNames: Map<string, Set<ICountryCurrencyPhone>>;
   private readonly currencyAlpha3s: Map<string, Set<ICountryCurrencyPhone>>;
   private readonly currencySymbols: Map<string, Set<ICountryCurrencyPhone>>;
-  private readonly phoneCodes: Map<string, ICountryCurrencyPhone>;
+  private readonly phoneCodes: Map<string, Set<ICountryCurrencyPhone>>;
 
   constructor() {
     this.countryNames = new Map<string, ICountryCurrencyPhone>();
@@ -17,7 +17,7 @@ export class CountryCurrencyPhone {
     this.currencyNames = new Map<string, Set<ICountryCurrencyPhone>>();
     this.currencyAlpha3s = new Map<string, Set<ICountryCurrencyPhone>>();
     this.currencySymbols = new Map<string, Set<ICountryCurrencyPhone>>();
-    this.phoneCodes = new Map<string, ICountryCurrencyPhone>();
+    this.phoneCodes = new Map<string, Set<ICountryCurrencyPhone>>();
     this.loadDb();
   }
 
@@ -64,8 +64,13 @@ export class CountryCurrencyPhone {
     return items;
   }
 
-  public getByPhoneCode(phoneCode: string): ICountryCurrencyPhone | undefined {
-    return this.phoneCodes.get(phoneCode);
+  public getByPhoneCode(phoneCode: string): ICountryCurrencyPhone[] {
+    const items: ICountryCurrencyPhone[] = [];
+    this.phoneCodes.get(phoneCode)?.forEach((item) => {
+      items.push(item);
+    });
+
+    return items;
   }
 
   public getAll(): ICountryCurrencyPhone[] {
@@ -85,10 +90,6 @@ export class CountryCurrencyPhone {
     this.countryAlpha2s.set(item.country.alpha2, item);
 
     this.countryAlpha3s.set(item.country.alpha3, item);
-
-    for (const phoneCode of item.phoneCodes) {
-      this.phoneCodes.set(phoneCode, item);
-    }
 
     let itemSet = this.currencyNames.get(item.currency.name);
     if (itemSet) {
@@ -113,6 +114,16 @@ export class CountryCurrencyPhone {
       itemSet = new Set<ICountryCurrencyPhone>().add(item);
       this.currencySymbols.set(item.currency.symbol, itemSet);
     }
+
+    item.phoneCodes.forEach((phoneCode) => {
+      itemSet = this.phoneCodes.get(phoneCode);
+      if (itemSet) {
+        itemSet.add(item);
+      } else {
+        itemSet = new Set<ICountryCurrencyPhone>().add(item);
+        this.phoneCodes.set(phoneCode, itemSet);
+      }
+    });
   }
 
   private loadDb(): void {
