@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { before, describe, it } from 'mocha';
+import { describe, it } from 'mocha';
 import { CountryCurrencyPhone } from '../lib';
 import { ICountryCurrencyPhone } from '../lib/interfaces';
 import * as fs from 'fs';
@@ -254,10 +254,10 @@ describe('CountryCurrencyPhone', () => {
     });
 
     it('should get all records', () => {
-      const items = countryCurrencyPhone.getAll();
+      const records = countryCurrencyPhone.getAll();
 
-      expect(items).to.exist;
-      expect(items.length).to.equal(db.length);
+      expect(records).to.exist;
+      expect(records.length).to.equal(db.length);
     });
   });
 

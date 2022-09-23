@@ -1,12 +1,10 @@
 # Country Currency Phone
 
-## 0.1.1
-- Update README.md
-
 ## 0.1.0
-- Get by country added.
-- Get by ISO added.
-- Get by currency added.
-- Get by symbol added.
-- Add custom country-currency pairs added.
-- Get all country-currency pairs added.
+- Get by country name added.
+- Get by country alpha2 and alpha3 added.
+- Get by currency name added.
+- Get by currency alpha3 added.
+- Get by currency symbol added.
+- Get all records added.
+- Add custom records to db added.
