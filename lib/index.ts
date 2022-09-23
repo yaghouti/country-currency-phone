@@ -83,6 +83,22 @@ export class CountryCurrencyPhone {
   }
 
   public addToDB(item: ICountryCurrencyPhone): void {
+    let existingRecord = this.getByCountryAlpha2(item.country.alpha2);
+    if (
+      existingRecord &&
+      existingRecord.country.alpha3 !== item.country.alpha3
+    ) {
+      throw new Error('Country alpha2 already exists!');
+    }
+
+    existingRecord = this.getByCountryAlpha3(item.country.alpha3);
+    if (
+      existingRecord &&
+      existingRecord.country.alpha2 !== item.country.alpha2
+    ) {
+      throw new Error('Country alpha3 already exists!');
+    }
+
     for (const name of item.country.names) {
       this.countryNames.set(name, item);
     }
