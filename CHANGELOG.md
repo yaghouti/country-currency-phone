@@ -1,5 +1,9 @@
 # Country Currency Phone
 
+## 0.1.1
+- Dependencies and exports fixed.
+- Old db files removed.
+
 ## 0.1.0
 - Get by country name added.
 - Get by country alpha2 and alpha3 added.
