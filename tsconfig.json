@@ -5,6 +5,7 @@
     "sourceMap": true,
     "outDir": "./build",
     "baseUrl": "./",
+    "module": "CommonJS",
     "esModuleInterop": true
   },
   "exclude": [

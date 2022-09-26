@@ -1,6 +1,6 @@
 {
   "name": "country-currency-phone",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Provides countries, currencies and phone codes base on ISO names, symbols and codes.",
   "license": "MIT",
   "main": "build/index.js",
