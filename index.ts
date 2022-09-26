@@ -1,4 +1,2 @@
-import { CountryCurrencyPhone } from './lib';
-import { ICountryCurrencyPhone } from './lib/interfaces';
-
-export { CountryCurrencyPhone, ICountryCurrencyPhone };
+export * from './lib/index';
+export * from './lib/interfaces';

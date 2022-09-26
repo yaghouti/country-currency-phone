@@ -1,8 +1,9 @@
 # Country Currency Phone
 
-## 0.1.1
-- Dependencies and exports fixed.
+## 0.1.3
+- Dependencies fixed.
 - Old db files removed.
+- Compile script fixed to copy the db to build folder.
 
 ## 0.1.0
 - Get by country name added.
