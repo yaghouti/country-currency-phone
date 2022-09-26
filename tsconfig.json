@@ -1,15 +1,13 @@
 {
-  "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
     "rootDir": ".",
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./build",
     "baseUrl": "./",
-    "esModuleInterop": true,
+    "esModuleInterop": true
   },
   "exclude": [
-    "build/**",
-    "test/*"
+    "build/**"
   ]
 }

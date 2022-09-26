@@ -1,11 +1,12 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import { CountryCurrencyPhone } from '../country-currency-phone';
-import { ICountryCurrencyPhone } from '../interfaces';
+import { CountryCurrencyPhone } from '../src/country-currency-phone';
+import { ICountryCurrencyPhone } from '../src/interfaces';
 import * as fs from 'fs';
+import * as path from 'path';
 
 const db: ICountryCurrencyPhone[] = JSON.parse(
-  fs.readFileSync('./db.json', 'utf-8'),
+  fs.readFileSync(path.join(__dirname, '../src/db.json'), 'utf-8'),
 );
 
 function getSampleRecord(): ICountryCurrencyPhone {

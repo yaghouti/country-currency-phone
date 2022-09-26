@@ -1,6 +1,6 @@
 {
   "name": "country-currency-phone",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Provides countries, currencies and phone codes base on ISO names, symbols and codes.",
   "license": "MIT",
   "main": "build/index.js",
@@ -10,7 +10,7 @@
   "scripts": {
     "lint": "gts lint",
     "clean": "gts clean",
-    "compile": "tsc && mkdir -p build/ && cp db.json build/",
+    "compile": "tsc && mkdir -p build/ && cp src/db.json build/src",
     "fix": "gts fix",
     "test": "mocha -r ts-node/register --project tsconfig.json */**/*.test.ts",
     "test:cov": "nyc --reporter=lcov --reporter=text pnpm run test ",

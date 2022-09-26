@@ -1,2 +1,2 @@
-export * from './country-currency-phone';
-export * from './interfaces';
+export * from './src/country-currency-phone';
+export * from './src/interfaces';

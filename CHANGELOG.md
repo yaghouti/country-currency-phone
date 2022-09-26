@@ -1,11 +1,12 @@
 # Country Currency Phone
 
-## 0.1.9
+## 0.1.10
 - Dependencies fixed.
 - Old db files removed.
 - Compile script fixed to copy the db to build folder.
 - Module gts removed.
 - Db path fixed.
+- Dir structure changed.
 
 ## 0.1.0
 - Get by country name added.
