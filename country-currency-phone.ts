@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import * as path from 'path';
 import { ICountryCurrencyPhone } from './interfaces';
 
 export class CountryCurrencyPhone {
@@ -144,7 +145,7 @@ export class CountryCurrencyPhone {
 
   private loadDb(): void {
     const db: ICountryCurrencyPhone[] = JSON.parse(
-      fs.readFileSync('./db/db.json', 'utf-8'),
+      fs.readFileSync(path.join(__dirname, './db.json'), 'utf-8'),
     );
 
     for (const item of db) {

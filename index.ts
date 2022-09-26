@@ -1,2 +1,2 @@
-export * from './lib/index';
-export * from './lib/interfaces';
+export * from './country-currency-phone';
+export * from './interfaces';

@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import { CountryCurrencyPhone } from '../lib';
-import { ICountryCurrencyPhone } from '../lib/interfaces';
+import { CountryCurrencyPhone } from '../country-currency-phone';
+import { ICountryCurrencyPhone } from '../interfaces';
 import * as fs from 'fs';
 
 const db: ICountryCurrencyPhone[] = JSON.parse(
-  fs.readFileSync('./db/db.json', 'utf-8'),
+  fs.readFileSync('./db.json', 'utf-8'),
 );
 
 function getSampleRecord(): ICountryCurrencyPhone {
